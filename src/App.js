@@ -10,7 +10,7 @@ class App extends Component {
        name: '',
        phone: '',
        address: '',
-       telephone: []
+       telephone: telephone
     }
     this.updateName = this.updateName.bind(this);
     this.updatePhone = this.updatePhone.bind(this);
@@ -34,13 +34,21 @@ class App extends Component {
   }
   SubmitValues(){
     let obj = {name: this.state.name, phone: this.state.phone, address: this.state.address}
-    this.setState({telephone: telephone.push(obj)});
-    console.log(obj, telephone)
+    let datas = this.state.telephone;
+    datas.push(obj)
+    this.setState({
+      telephone: datas
+    });
+    console.log(obj, this.state.telephone)
   }
 
-  deleteValue() {
-    this.setState({telephone: telephone.pop()});
-    console.log(telephone)
+  deleteValue(index) {
+    let datas = this.state.telephone;
+    datas.splice(index,1);
+    this.setState({
+      telephone: datas
+    });
+    console.log(index, this.state.telephone);
   }
 
   renderList() {
@@ -52,7 +60,7 @@ class App extends Component {
               <td>{item.phone}</td>
               <td>{item.address}</td>
               <td>
-                <button onClick = {this.deleteValue}>Delete</button>
+                <button onClick = {() => this.deleteValue(index)}>Delete</button>
               </td>
             </tr>
             )
